@@ -10,5 +10,3 @@ clear
 beamformerObject = Beamformer(simulationParams);
 % Расчет весовой матрицы
 beamformerObject.getBeamformerWeights
-% Скорость изменения фазы
-phaseDistribution = angle(beamformerObject.beamformerWeights) * (180/pi);
