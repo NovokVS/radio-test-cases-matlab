@@ -171,30 +171,16 @@ classdef Beamformer < handle
 
             % Задание диапазона рассматриваемых значений ОСШ в dB
             this.snrdB = linspace(- 40,5,45);
-            % Объявление и инициализация нулями расчетных членов
-            this.spectralPerformance = 0;
-            interferenceMember = 0;
-            % Расчет спектральной эффективности для k-го пользователя и для
-            % системы (суммированием по всем пользователям)
-            for kUserIdx = 1 : this.nUsers
-                % Расчет интерференционной составляющей сигнала
-                % суммированием по всем непрямым путям прохождения
-                for jUserIdx = 1 : this.nUsers
-                    % Исключение из накопления (суммы) прямого канала прохождения
-                    % сигнала
-                    if jUserIdx ~= kUserIdx
-                        interferenceMember = interferenceMember + ...
-                            abs((this.channelCoeffs(kUserIdx, :) * this.beamformerWeights(:, jUserIdx))) ^ 2;
-                    end
-                end
-                % Непосредственный расчет спектральной эффективности по
-                % формуле Шеннона для k-го пользователя
-                kUserSpectralPerformance = log2(1 + ...
-                    (abs((this.channelCoeffs(kUserIdx, :) * this.beamformerWeights(:, kUserIdx))) ^ 2)...
-                    ./ (db2pow(- this.snrdB) + interferenceMember));
-                % Суммарная спеатральная эффективность системы
-                this.spectralPerformance = this.spectralPerformance + kUserSpectralPerformance;
-            end
+            % Расчет принятого сигнала
+            channelGains = abs(this.channelCoeffs * this.beamformerWeights) .^ 2;
+            % Расчет полезной составляющей сигнала (прямого канала прохождения)
+            signalGains = diag(channelGains);
+            % Расчет интерференционной составляющей сигнала
+            % (сумма всех элементов строки матрицы за вычетом диагонального элемента)
+            interferenceGains = sum(channelGains, 2) - signalGains;
+            % Расчет спектральной эффективности по формуле Шеннона для k-го пользователя 
+            % и для системы (суммированием по всем строкам/пользователям)
+            this.spectralPerformance = sum(log2(1 + signalGains ./ (db2pow(- this.snrdB) + interferenceGains)), 1);
         end % Конец function calcSpectralPerformance
 
         function vuzailizeLayout(this)
