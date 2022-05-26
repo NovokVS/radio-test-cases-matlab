@@ -164,6 +164,11 @@ classdef Beamformer < handle
             end
         end % Конец function calcBeamformerWeights(this)
 
+        function calcPowerAllocation(this)
+            % Метод класса, реализующий расчет распределение мощности бортового радиокомплекса
+            % космического аппарата которая ограничена значениями this.snrdB.
+        end
+
         function calcSpectralPerformance(this)
             % Метод класса, реализующий расчет спектральной эффективности
             % радиопередачи с учетом матрицы прекодирования полученной в расчете
