@@ -1,1 +1,0 @@
-% Скрипт для запуска waveformAnalyxer
