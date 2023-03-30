@@ -36,6 +36,7 @@ classdef WaveformAnalyzer < handle
         noiseMeanPower
         modulationType
         waveformDuration
+        dopplershift
     end
 
     methods
@@ -45,6 +46,10 @@ classdef WaveformAnalyzer < handle
         end
 
         function calcWaveformParameters(this)
+
+        end
+
+        function calcdopplerSHift
 
         end
 
