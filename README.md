@@ -15,9 +15,9 @@
 
 1. Code review – предложите правки по логике и оформлению предоставленного вам кода (StyleGuide прилагается)
 
-2. Реализуйте методы "calcWaveformParameters" и "plotPowerSpectrumDensity" в классе WaveformAnalyzer.
+2. Реализуйте методы "calcWaveformParameters", "calcDopplerShift" и "plotPowerSpectrumDensity" в классе WaveformAnalyzer.
 
-3. Заполните следующие поля класса: waveformMeanPower, channelBandwidth, modulationType, waveformDuration. 
+3. Заполните следующие поля класса: waveformMeanPower, channelBandwidth, modulationType, waveformDuration, dopplerShift. 
 
 4. Реализуйте скрипт для демострации работы программы с функционалом описанным в пункте 2 и 3
 
